@@ -30,6 +30,7 @@ function* loginUser(action) {
 
     if (user) {
       yield put(loginSuccess(user));
+      localStorage.setItem('userId', JSON.stringify(user.id))
     } else {
       yield put(loginFailure('Invalid username or password'));
     }
@@ -56,7 +57,7 @@ function* fetchTodos(action) {
 
     const userTodos = todos.filter((todo) => todo.userId === userId);
 
-    yield put(fetchTodosSuccess(userTodos));
+    // yield put(fetchTodosSuccess(userTodos));
   } catch (error) {
     yield put(fetchTodosFailure('An error occurred while fetching todos'));
   }

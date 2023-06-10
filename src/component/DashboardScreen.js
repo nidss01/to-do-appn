@@ -13,6 +13,15 @@ const DashboardScreen = () => {
   const history = useHistory();
   const [showTodoForm, setShowTodoForm] = useState(false);
   const [selectedTodo, setSelectedTodo] = useState(null);
+  const [todoData, setTodoData] = useState([])
+
+  console.log('todos', todos)
+
+  useEffect(() => {
+    const d = todos.filter((singleTodo) => singleTodo.userId === localStorage.getItem('userId'))
+    setTodoData(d)
+  }, [todos])
+  
 
   useEffect(() => {
     if (user) {
@@ -22,6 +31,7 @@ const DashboardScreen = () => {
 
   const handleLogout = () => {
     dispatch(logout());
+    localStorage.removeItem('userId')
     history.push('/');
   };
 
@@ -29,7 +39,11 @@ const DashboardScreen = () => {
     if (selectedTodo) {
       dispatch(deleteTodo(selectedTodo.id));
     }
-    dispatch(addTodo(todo));
+    const todoData = {
+      ...todo,
+      userId: localStorage.getItem('userId')
+    }
+    dispatch(addTodo(todoData));
     setSelectedTodo(null);
     setShowTodoForm(false);
   };
@@ -82,7 +96,7 @@ const DashboardScreen = () => {
 
                 <hr class="my-4" />
 
-                {todos.map((todo) => (
+                {todoData.map((todo) => (
                   <li className="list-group-item" key={todo.id}>
                     <div className='row'>
                       <div className='col-lg-10'>

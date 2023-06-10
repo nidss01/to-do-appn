@@ -11,7 +11,10 @@ const LoginScreen = () => {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.loading);
   const error = useSelector((state) => state.error);
+  const todos = useSelector((state) => state.todos);
   const history = useHistory();
+
+  console.log('todos', todos)
 
   const handleLogin = (e) => {
     e.preventDefault();

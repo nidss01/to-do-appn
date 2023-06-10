@@ -44,7 +44,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         user: null,
-        todos: [],
+        loading: false
       };
     case FETCH_TODOS_REQUEST:
       return {
@@ -60,7 +60,6 @@ const reducer = (state = initialState, action) => {
     case FETCH_TODOS_FAILURE:
       return {
         ...state,
-        todos: [],
         loading: false,
         error: action.payload,
       };
